@@ -70,9 +70,9 @@ def trek_films
     FROM
       movies
     WHERE
-      title LIKE 'Star Trek%'
+      title LIKE '%Star Trek%'
     ORDER BY
-      yr ASC;
+      yr;
   SQL
 end
 
@@ -121,18 +121,9 @@ def casablanca_cast
     FROM
       actors
     JOIN
-      castings ON actors.id = castings.actor_id
-    JOIN
-      movies ON castings.movie_id = movies.id
+      castings ON castings.actor_id = actors.id
     WHERE
-      movies.id = (
-        SELECT
-          movies.id
-        FROM
-          movies
-        WHERE
-          movies.title = 'Casablanca'
-      );
+      castings.movie_id = 27
   SQL
 end
 
@@ -144,9 +135,9 @@ def alien_cast
     FROM
       actors
     JOIN
-      castings ON actors.id = castings.actor_id
+      castings ON castings.actor_id = actors.id
     JOIN
-      movies ON castings.movie_id = movies.id
+      movies ON movies.id = castings.movie_id
     WHERE
       movies.title = 'Alien';
   SQL

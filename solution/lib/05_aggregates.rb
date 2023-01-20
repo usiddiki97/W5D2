@@ -22,8 +22,8 @@ end
 def continents
   # List all the continents - just once each.
   execute(<<-SQL)
-    SELECT DISTINCT
-      continent
+    SELECT
+      DISTINCT(continent)
     FROM
       countries;
   SQL
@@ -61,7 +61,7 @@ def group_population
     FROM
       countries
     WHERE
-      name IN ('France','Germany','Spain');
+      name IN ('France', 'Germany', 'Spain');
   SQL
 end
 
@@ -70,7 +70,7 @@ def country_counts
   execute(<<-SQL)
     SELECT
       continent,
-      COUNT(name)
+      COUNT(*)
     FROM
       countries
     GROUP BY
@@ -84,7 +84,7 @@ def populous_country_counts
   execute(<<-SQL)
     SELECT
       continent,
-      COUNT(name)
+      COUNT(*)
     FROM
       countries
     WHERE
@@ -104,6 +104,6 @@ def populous_continents
     GROUP BY
       continent
     HAVING
-      SUM(population) >= 100000000;
+      SUM(population) > 100000000;
   SQL
 end
